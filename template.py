@@ -37,7 +37,7 @@ def get_input_files(folder: str) -> List[str]:
     Returns:
         List[str]: List of found folder paths
     """
-    return glob.glob(f"{folder}\inputs\*.txt")
+    return glob.glob(f"{folder}/inputs/*.txt")
 
 def get_file_choice(file_list: List[str]) -> str:
     """Displays a given list of paths, and returns the path of the chosen file
@@ -67,7 +67,7 @@ def get_input_path(folder) -> str:
     return get_file_choice(get_input_files(folder))
 
 def get_factors(n: int) -> Set[int]:
-    """Gets all the factors of the given fumber
+    """Gets all the factors of the given number
 
     Args:
         n (int): The number to get the factors of
@@ -93,7 +93,7 @@ def format_output(data: List[int]) -> List[str]:
 
 
 def main():
-    folder_name = "{name}"
+    folder_name = "test"
     input_path = get_input_path(folder_name)
     lines = get_file(input_path)
     output = []
@@ -103,15 +103,11 @@ def main():
         pass # Code goes here
     
     
-       
-    
-    
-    
     
     result = re.search(f"input-{folder_name}-(.*).txt",input_path)
     output_path = result.group(1)
     
-    write_file(f"{folder_name}\outputs\output-{output_path}.txt", format_output(output))
+    write_file(f"{folder_name}/outputs/output-{output_path}.txt", format_output(output))
 
 if __name__ == '__main__':
     main()
