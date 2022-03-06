@@ -95,13 +95,15 @@ def main():
     output = []
 
     for _ in range(int(lines.pop(0))):
-        print("Hello DaVinci's Code")
-
+        pass 
+    
     result = re.search(f"input-{folder_name}-(.*).txt",input_path)
     output_path = result.group(1)
     
     write_file(f"{folder_name}\outputs\output-{output_path}.txt", format_output(output))
 
 if __name__ == '__main__':
-    main()
+    #main()
+    print("Hello DaVinci's Code")
+
 
