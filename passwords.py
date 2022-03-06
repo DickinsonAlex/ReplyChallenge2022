@@ -87,11 +87,11 @@ def solve_test_case(case):
     length_of_specific_number = case[1]
     specific_number = case[2]
     if length_of_specific_number >= length_of_password:
-        return 2 ** length_of_password
+        return pow(2, length_of_password, 10 ** 9 + 7)
     else:
         A = pow(2,  length_of_password, 10 ** 9 + 7)
         B = pow(2, length_of_specific_number, 10 ** 9 + 7)
-        return (A-B) % 1_000_000_007
+        return A - B % 1_000_000_007
 
 
 def solve_test_cases(cases):
