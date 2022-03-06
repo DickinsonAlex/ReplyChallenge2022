@@ -1,9 +1,8 @@
 import glob
-import itertools
 import os
+import math
 
 from typing import List
-from concurrent.futures import ProcessPoolExecutor
 
 
 def get_input_files(folder: str) -> List[str]:
@@ -87,13 +86,12 @@ def solve_test_case(case):
     length_of_password = case[0]
     length_of_specific_number = case[1]
     specific_number = case[2]
-    if length_of_specific_number > length_of_password:
+    if length_of_specific_number >= length_of_password:
         return 2 ** length_of_password
     else:
-        all_possible_passwords = []
-        for combo in itertools.product(['0', '1'], repeat=length_of_password):
-            all_possible_passwords.append(''.join(list(combo)))
-        return sum([1 for combo in all_possible_passwords if specific_number not in combo])
+        A = pow(2,  length_of_password, 10 ** 9 + 7)
+        B = pow(2, length_of_specific_number, 10 ** 9 + 7)
+        return (A-B) % 1_000_000_007
 
 
 def solve_test_cases(cases):
@@ -104,9 +102,9 @@ def solve_test_cases(cases):
 
 
 def chunk(lst, count):
-    size = len(lst)/count
+    size = len(lst) / count
     for i in range(0, count):
-        s = slice(round(i*size), None if i == count-1 else round((i+1)*size))
+        s = slice(round(i * size), None if i == count - 1 else round((i + 1) * size))
         yield lst[s]
 
 
@@ -118,13 +116,7 @@ def main():
     file = get_input_path("/home/scot/Downloads")
     try:
         no_cases, cases = get_input(file)
-        # answers = list(map(solve_test_case, cases))
-        cpus = os.cpu_count()
-        data_gen = chunk(cases, cpus)
-        futures = []
-        with ProcessPoolExecutor(cpus) as executor:
-            futures.append(executor.submit(solve_test_cases, next(data_gen)))
-        answers = [future.result() for future in futures]
+        answers = list(map(solve_test_case, cases))
         write_file("output", answers)
     except Exception as e:
         os.remove(file)
