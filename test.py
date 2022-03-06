@@ -94,15 +94,8 @@ def main():
     lines = get_file(input_path)
     output = []
 
-    
     for _ in range(int(lines.pop(0))):
-        pass # Code goes here
-
-
-
-
-
-
+        print("Hello DaVinci's Code")
 
     result = re.search(f"input-{folder_name}-(.*).txt",input_path)
     output_path = result.group(1)
@@ -112,4 +105,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-print("Hello DaVinci's Code")
