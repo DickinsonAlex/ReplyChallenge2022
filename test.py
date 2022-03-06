@@ -1,8 +1,10 @@
+from tokenize import String
 from typing import List, Set
 import glob
 import pyinputplus as pyip
 from functools import reduce
 from math import sqrt
+import re
 
 def get_file(path: str) -> List[str]:
     """Reads and returns the lines from the given path
@@ -77,6 +79,37 @@ def get_factors(n: int) -> Set[int]:
     step = 2 if n%2 else 1
     return set(reduce(list.__add__,
                 ([i, n//i] for i in range(1, int(sqrt(n))+1, step) if n % i == 0)))
+
+def format_output(data: String) -> List[str]:
+    output_list = []
+    for i, num in enumerate(data):
+        line_output = f"Case #{i + 1}: {num}"
+        output_list.append(line_output)
+        
+    return output_list
+
+def main():
+    folder_name = "{name}"
+    input_path = get_input_path(folder_name)
+    lines = get_file(input_path)
+    output = []
+
     
+    for _ in range(int(lines.pop(0))):
+        pass # Code goes here
+
+
+
+
+
+
+
+    result = re.search(f"input-{folder_name}-(.*).txt",input_path)
+    output_path = result.group(1)
+    
+    write_file(f"{folder_name}\outputs\output-{output_path}.txt", format_output(output))
+
+if __name__ == '__main__':
+    main()
 
 print("Hello DaVinci's Code")
