@@ -15,35 +15,29 @@ def WriteFile(FileName,Answers):
         file.write(String)
     file.close()
 
-def bfs(grid, start):
-    queue = collections.deque([[start]])
-    seen = set([start])
-    while queue:
-        path = queue.popleft()
-        x, y = path[-1]
-        if grid[y][x] == goal:
-            return path
-        for x2, y2 in ((x+1,y), (x-1,y), (x,y+1), (x,y-1)):
-            if 0 <= x2 < width and 0 <= y2 < height and grid[y2][x2] != wall and (x2, y2) not in seen:
-                queue.append(path + [(x2, y2)])
-                seen.add((x2, y2))
-
-def LevelUp(Floors, PlayerLevelGoal):
+def Pathfinding(Floors, PlayerLevelGoal):
     PlayerLevel = 0
     Path = ""
-    for row in range(0, len(Floors[0])):
-        for col in range(0, len(Floors[0])):
-            if Floors[0][row][col] == "I":
-                Position = [row, col]
-                print(Position)
+    Position = [0,0,0]
+    while Position[2] != len(Floors): #Clear each floor
+        MonsterPositions = []
+        for row in range(0, len(Floors[Position[2]])):
+            for col in range(0, len(Floors[0])):
+                if Floors[0][row][col] == "I":
+                    Position = [row, col, Position[2]] #Find start position
+                elif Floors[0][row][col] == "O":
+                    EndPosition = [row, col, Position[2]] #Find zombie position
+                elif Floors[0][row][col] == "M":
+                    MonsterPositions.append([row, col, Position[2]]) #Find start position
+                
+        for monster in MonsterPositions:
+            #Make path to each monster + store path while avoiding I or O
+            pass
 
-    while PlayerLevel != PlayerLevelGoal:
+        #Find exit
 
-
-    return Path
-
-def GetOut(Floors):
-    Path = ""
+        Position[2] += 1
+        **
     return Path
 
 def main():
@@ -74,7 +68,7 @@ def main():
             for row in range(0, Size):
                 x = [0 for Col in range(0, Size)]
                 for col in range(0, Size-1):
-                    x[col] = Lines[Line + row].split(" ")[col]
+                    x[col] = Lines[Line + row+1].split(" ")[col]
 
                 Floor.append(x) #Create empty array
 
@@ -86,11 +80,10 @@ def main():
         for floor in Floors:
             print(floor)
 
-        Position = [0,0]
+        Position = [0,0,0]
         Path = ""
 
-        Path += LevelUp(Floors, PlayerLevelGoal)
-        Path += GetOut(Floors)
+        Path += Pathfinding(Floors, PlayerLevelGoal)
 
         for x in range(0, MaxLine):
             Lines.pop(0)
