@@ -1,5 +1,7 @@
 import math
 import copy
+import random
+
 global Position
 
 def ReadFile(FileName):
@@ -34,7 +36,7 @@ def Pathfinding(Floors, PlayerLevelGoal):
                     MonsterPositions.append([row, col, Position[2]]) #Find start position
                 
         for monster in MonsterPositions:
-            #Add path to each monster (NEEDS MODIFICATION TO MOVE AROUND I AND O)
+            #Add path to each monster
             while Position != monster:
                 temp = copy.deepcopy(Position)
                 if monster[0] < Position[0]:
