@@ -1,30 +1,45 @@
-import functions as funcs
-from typing import List
-import re
+import math
+def ReadFile(FileName):
+    File = open(FileName + ".txt","r")
+    Text = File.read()
+    Text = Text.split("\n")
+    File.close()
+    return Text
 
-    
-# def format_output(data: {type}) -> List[str]:
-#     output_list = []
-#     for i, num in enumerate(data):
-#         line_output = f"Case #{i + 1}: {num}"
-#         output_list.append(line_output)
-        
-#     return output_list
+def WriteFile(FileName,Answers):
+    file=open(FileName + ".txt","w")
+    for answer in range(0,len(Answers)):
+        String = "Case #"+str(answer+1)+": "+str(Answers[answer]) + "\n"
+        file.write(String)
+    file.close()
+
 
 def main():
-    folder_name = "riceboard"
-    input_path = funcs.get_input_path(folder_name)
-    lines = funcs.get_file(input_path)
-    output = []
+    InputFileName = "InputFile"
+    OutputFileName = "OutputFile"
 
+    Lines = ReadFile(InputFileName)
+    Answers = []
+    NumberOfTestCases = int(Lines[0])
+    Line = 0
+    for TestCase in range(0,NumberOfTestCases):
+        Line += 1
+        Numbers = Lines[Line].split(" ")
+
+        Multiplier = int(Numbers[0])
+        WidthHeight = int(Numbers[1])
+        BagCapacity = int(Numbers[2])
+        CellCount = WidthHeight**2
+        RiceCount = 1
     
-    for _ in range(int(lines.pop(0))):
-        pass # Code goes here
+        for x in range(1,CellCount):
+            RiceCount = RiceCount + Multiplier **x
+        Remainder = RiceCount % BagCapacity
     
-    result = re.search(f"input-{folder_name}-(.*).txt",input_path)
-    output_path = result.group(1)
-    
-    funcs.write_file(f"{folder_name}\outputs\output-{output_path}.txt", format_output(output))
+        print(Remainder)
+        Answers.append(Remainder)
+        
+    WriteFile(OutputFileName,Answers)
 
 if __name__ == '__main__':
     main()
