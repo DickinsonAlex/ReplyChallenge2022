@@ -1,4 +1,5 @@
 import math
+import copy
 global Position
 
 def ReadFile(FileName):
@@ -35,34 +36,55 @@ def Pathfinding(Floors, PlayerLevelGoal):
         for monster in MonsterPositions:
             #Add path to each monster (NEEDS MODIFICATION TO MOVE AROUND I AND O)
             while Position != monster:
+                temp = copy.deepcopy(Position)
                 if monster[0] < Position[0]:
-                    Path += "U"
-                    Position[0] -= 1
+                    temp[0] -= 1
+                    if temp != StartPosition and temp != EndPosition:
+                        Path += "U"
+                        Position[0] -= 1
                 elif monster[0] > Position[0]:
-                    Path += "D"
-                    Position[0] += 1
+                    temp[0] += 1
+                    if temp != StartPosition and temp != EndPosition:
+                        Path += "D"
+                        Position[0] += 1
+                
+                temp = copy.deepcopy(Position)
                 if monster[1] > Position[1]:
-                    Path += "R"
-                    Position[1] += 1
+                    temp[1] += 1
+                    if temp != StartPosition and temp != EndPosition:
+                        Path += "R"
+                        Position[1] += 1
                 elif monster[1] < Position[1]:
-                    Path += "L"
-                    Position[1] -= 1
+                    temp[1] -= 1
+                    if temp != StartPosition and temp != EndPosition:
+                        Path += "L"
+                        Position[1] -= 1
 
 
         #Get the path to O
         while Position != EndPosition:
+            temp = copy.deepcopy(Position)
             if EndPosition[0] < Position[0]:
-                Path += "U"
-                Position[0] -= 1
+                temp[0] -= 1
+                if temp != StartPosition:
+                    Path += "U"
+                    Position[0] -= 1
             elif EndPosition[0] > Position[0]:
-                Path += "D"
-                Position[0] += 1
+                temp[0] += 1
+                if temp != StartPosition:
+                    Path += "D"
+                    Position[0] += 1
+            temp = copy.deepcopy(Position)
             if EndPosition[1] > Position[1]:
-                Path += "R"
-                Position[1] += 1
+                temp[1] += 1
+                if temp != StartPosition:
+                    Path += "R"
+                    Position[1] += 1
             elif EndPosition[1] < Position[1]:
-                Path += "L"
-                Position[1] -= 1
+                temp[1] -= 1
+                if temp != StartPosition:
+                    Path += "L"
+                    Position[1] -= 1
             
         
         print(Path + str(Position[2]))
