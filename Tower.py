@@ -19,25 +19,56 @@ def Pathfinding(Floors, PlayerLevelGoal):
     PlayerLevel = 0
     Path = ""
     Position = [0,0,0]
-    while Position[2] != len(Floors): #Clear each floor
+    EndPosition = [0,0,0]
+    while Position[2] != len(Floors): #While not at the end
         MonsterPositions = []
         for row in range(0, len(Floors[Position[2]])):
-            for col in range(0, len(Floors[0])):
-                if Floors[0][row][col] == "I":
-                    Position = [row, col, Position[2]] #Find start position
-                elif Floors[0][row][col] == "O":
+            for col in range(0, len(Floors[Position[2]])):
+                if Floors[Position[2]][row][col] == "I":
+                    StartPosition = [row, col, Position[2]] #Find start position
+                    Position = StartPosition
+                elif Floors[Position[2]][row][col] == "O":
                     EndPosition = [row, col, Position[2]] #Find zombie position
-                elif Floors[0][row][col] == "M":
+                elif Floors[Position[2]][row][col] == "M":
                     MonsterPositions.append([row, col, Position[2]]) #Find start position
                 
         for monster in MonsterPositions:
-            #Make path to each monster + store path while avoiding I or O
-            pass
+            #Add path to each monster (NEEDS MODIFICATION TO MOVE AROUND I AND O)
+            while Position != monster:
+                if monster[0] > Position[0]:
+                    Path += "U"
+                    Position[0] += 1
+                elif monster[0] < Position[0]:
+                    Path += "D"
+                    Position[0] -= 1
+                if monster[1] > Position[1]:
+                    Path += "R"
+                    Position[1] += 1
+                elif monster[1] < Position[1]:
+                    Path += "L"
+                    Position[1] -= 1
 
-        #Find exit
+
+        #Get the path to O
+        while Position != EndPosition:
+            if EndPosition[0] > Position[0]:
+                Path += "U"
+                Position[0] += 1
+            elif EndPosition[0] < Position[0]:
+                Path += "D"
+                Position[0] -= 1
+            if EndPosition[1] > Position[1]:
+                Path += "R"
+                Position[1] += 1
+            elif EndPosition[1] < Position[1]:
+                Path += "L"
+                Position[1] -= 1
+            
+        
+        print(Path + str(Position[2]))
 
         Position[2] += 1
-        **
+        
     return Path
 
 def main():
@@ -89,7 +120,7 @@ def main():
             Lines.pop(0)
 
         print(Path)
-        #Answer.append(Path)
+        Answers.append(Path)
         
     WriteFile(OutputFileName,Answers)
 
