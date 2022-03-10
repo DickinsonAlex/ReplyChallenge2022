@@ -1,6 +1,6 @@
 from typing import List
 
-def readFile(file: str) -> List[str]:
+def read_file(file: str) -> List[str]:
     """Reads file - takes string in and claims to return list of string
 
     Args:
@@ -14,7 +14,7 @@ def readFile(file: str) -> List[str]:
         
     return [line.strip() for line in lines]
 
-def writeFile(name: str, data: List):
+def write_file(name: str, data: List):
     """Writes to given file
 
     Args:
@@ -26,14 +26,14 @@ def writeFile(name: str, data: List):
         file.write("\n".join([str(record) for record in data])) #adds new line to each data row to display an so of lines
 
 def main():
-    data = readfile("{data.txt}") #Replace with file location
+    data = read_file("{data.txt}") #Replace with file location
     output = []
     
     for i in range(0, int(data.pop(0))):
         #Code here
         pass
     
-    writeFile("{result.txt}", output)
+    write_file("{result.txt}", output)
 
 if __name__ == "__main__":
     main()
