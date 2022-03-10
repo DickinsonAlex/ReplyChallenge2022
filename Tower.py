@@ -35,12 +35,12 @@ def Pathfinding(Floors, PlayerLevelGoal):
         for monster in MonsterPositions:
             #Add path to each monster (NEEDS MODIFICATION TO MOVE AROUND I AND O)
             while Position != monster:
-                if monster[0] > Position[0]:
+                if monster[0] < Position[0]:
                     Path += "U"
-                    Position[0] += 1
-                elif monster[0] < Position[0]:
-                    Path += "D"
                     Position[0] -= 1
+                elif monster[0] > Position[0]:
+                    Path += "D"
+                    Position[0] += 1
                 if monster[1] > Position[1]:
                     Path += "R"
                     Position[1] += 1
@@ -51,12 +51,12 @@ def Pathfinding(Floors, PlayerLevelGoal):
 
         #Get the path to O
         while Position != EndPosition:
-            if EndPosition[0] > Position[0]:
+            if EndPosition[0] < Position[0]:
                 Path += "U"
-                Position[0] += 1
-            elif EndPosition[0] < Position[0]:
-                Path += "D"
                 Position[0] -= 1
+            elif EndPosition[0] > Position[0]:
+                Path += "D"
+                Position[0] += 1
             if EndPosition[1] > Position[1]:
                 Path += "R"
                 Position[1] += 1
@@ -98,7 +98,7 @@ def main():
             Size = int(FloorInformation[-1][1])
             for row in range(0, Size):
                 x = [0 for Col in range(0, Size)]
-                for col in range(0, Size-1):
+                for col in range(0, Size):
                     x[col] = Lines[Line + row+1].split(" ")[col]
 
                 Floor.append(x) #Create empty array
