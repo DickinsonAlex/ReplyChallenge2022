@@ -607,3 +607,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+
+# Local build output (kept out of the repo)
+/[Bb]uilds/
